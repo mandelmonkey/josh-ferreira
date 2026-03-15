@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Josh — ZBD Intern</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0a0c14;
+    color: #c8ccd4;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Ambient glow */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(56, 209, 83, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .avatar-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+
+  .avatar {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #38d153;
+    box-shadow: 0 0 40px rgba(56, 209, 83, 0.2);
+  }
+
+  .status-dot {
+    position: absolute;
+    bottom: 10px; right: 10px;
+    width: 20px; height: 20px;
+    background: #38d153;
+    border-radius: 50%;
+    border: 3px solid #0a0c14;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(56, 209, 83, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(56, 209, 83, 0); }
+  }
+
+  .name {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .name span { color: #38d153; }
+
+  .title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #38d153;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 4px;
+  }
+
+  .tagline {
+    margin-top: 12px;
+    font-size: 15px;
+    color: #6b7280;
+    font-style: italic;
+  }
+
+  /* Sections */
+  .section {
+    background: #111320;
+    border: 1px solid #1e2235;
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+  }
+
+  .section:hover {
+    border-color: #38d15333;
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: #38d153;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #38d15333, transparent);
+  }
+
+  p { margin-bottom: 12px; font-size: 15px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* Skills */
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .skill {
+    background: #38d15312;
+    border: 1px solid #38d15325;
+    color: #38d153;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* Stats grid */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    text-align: center;
+  }
+
+  .stat {
+    background: #0d0f1a;
+    border-radius: 12px;
+    padding: 16px 8px;
+  }
+
+  .stat-val {
+    font-size: 24px;
+    font-weight: 800;
+    color: #38d153;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* Hobbies list */
+  .hobby-list { list-style: none; }
+
+  .hobby-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #1e2235;
+    font-size: 15px;
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+
+  .hobby-list li:last-child { border-bottom: none; }
+
+  .hobby-emoji { font-size: 18px; flex-shrink: 0; }
+
+  /* Fun facts */
+  .fact {
+    background: #0d0f1a;
+    border-left: 3px solid #38d153;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    border-radius: 0 10px 10px 0;
+    font-size: 14px;
+  }
+
+  .fact:last-child { margin-bottom: 0; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    color: #333;
+  }
+
+  @media (max-width: 480px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .avatar { width: 140px; height: 140px; }
+    .name { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="avatar-wrap">
+      <img src="josh.jpg" alt="Josh" class="avatar">
+      <div class="status-dot"></div>
+    </div>
+    <div class="name">Josh <span>Ferreira</span></div>
+    <div class="title">Software Engineering Intern — ZBD</div>
+    <div class="tagline">"To-Do: Code, Coffee, Naps… League"</div>
+  </div>
+
+  <!-- Bio -->
+  <div class="section">
+    <div class="section-title">About Me</div>
+    <p>Hey! I'm Josh — the newest intern on the ZBD Rewards SDK team. Originally from São Paulo, now based in London and fuelled almost entirely by Monster Energy and cold pizza.</p>
+    <p>I'm a final-year Computer Science student at King's College London, specialising in distributed systems. I got into Bitcoin through gaming (specifically losing sats in ZBD-powered games) and figured if I couldn't beat the system, I might as well help build it.</p>
+    <p>My manager Christian has me working through the backlog — squashing bugs, tidying up the dev dashboard, and trying not to break production. So far so good. <em>Mostly.</em></p>
+  </div>
+
+  <!-- Stats -->
+  <div class="section">
+    <div class="section-title">Intern Stats</div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-val">0</div>
+        <div class="stat-label">Weeks at ZBD</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">0</div>
+        <div class="stat-label">PRs Merged</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">0</div>
+        <div class="stat-label">Prod Incidents</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech -->
+  <div class="section">
+    <div class="section-title">Tech Stack</div>
+    <div class="skills">
+      <span class="skill">TypeScript</span>
+      <span class="skill">React</span>
+      <span class="skill">Next.js</span>
+      <span class="skill">Node.js</span>
+      <span class="skill">PostgreSQL</span>
+      <span class="skill">Docker</span>
+      <span class="skill">Git</span>
+      <span class="skill">Python</span>
+      <span class="skill">Tailwind</span>
+      <span class="skill">Lightning Network</span>
+      <span class="skill">K6 Load Testing</span>
+      <span class="skill">Playwright</span>
+    </div>
+  </div>
+
+  <!-- Education -->
+  <div class="section">
+    <div class="section-title">Education</div>
+    <p><strong style="color:#fff;">BSc Computer Science</strong> — King's College London (2023–2026)</p>
+    <p>Dissertation: <em>"Micropayment Incentive Layers in Mobile Gaming Economies"</em> — basically an academic excuse to play games and call it research.</p>
+    <p>Relevant modules: Distributed Systems, Cryptography, Software Engineering, Human-Computer Interaction.</p>
+  </div>
+
+  <!-- Hobbies -->
+  <div class="section">
+    <div class="section-title">Off the Clock</div>
+    <ul class="hobby-list">
+      <li><span class="hobby-emoji">⚽</span> Brazilian at heart — never miss a Seleção match. Neymar retirement arc is killing me.</li>
+      <li><span class="hobby-emoji">🎮</span> League of Legends (Silver II and proud), Valorant, and whatever ZBD game has the best rewards this week.</li>
+      <li><span class="hobby-emoji">🎸</span> Learning guitar — currently butchering Bossa Nova. Tom Jobim would not approve.</li>
+      <li><span class="hobby-emoji">☕</span> Specialty coffee snob. Will judge your instant coffee silently.</li>
+      <li><span class="hobby-emoji">🏋️</span> Gym at 6am… in theory. In practice, gym at 6pm if the code compiles before 5.</li>
+      <li><span class="hobby-emoji">🍕</span> Competitive pizza consumer. Office record: 11 slices during a Friday deploy.</li>
+    </ul>
+  </div>
+
+  <!-- Fun Facts -->
+  <div class="section">
+    <div class="section-title">Things You Didn't Ask to Know</div>
+    <div class="fact">Once accidentally pushed to main on day two. The Slack thread was… educational.</div>
+    <div class="fact">My desk setup includes two monitors, a Brazil flag, and a rubber duck named "Pelé" for debugging.</div>
+    <div class="fact">I keep a whiteboard that says "To-Do: Code, Coffee, Naps" — it hasn't changed in three weeks because those priorities are non-negotiable.</div>
+    <div class="fact">Christian told me to "familiarise myself with the codebase." I've been familiarising for two weeks. The codebase keeps getting bigger.</div>
+  </div>
+
+  <div class="footer">
+    Made with 🍕 and questionable amounts of caffeine — ZBD Intern Programme 2026
+  </div>
+
+</div>
+
+</body>
+</html>
